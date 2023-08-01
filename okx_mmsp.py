@@ -30,7 +30,6 @@ GET_MMP = '/api/v5/account/mmp-config'
 RESET_MMP = '/api/v5/account/mmp-reset'
 params = {'instFamily': 'BTC-USD'}
 params = {'instType': 'OPTION', 'instFamily': 'BTC-USD'}
-# result = accountAPI._request_with_params(POST, RESET_MMP, params)
 # result = BlockTradingAPI.reset_mmp()
 
 
@@ -65,10 +64,9 @@ def main():
         secretkey = secretkeys[count]
         passphrase = passphrases[count] 
         accountAPI  = Account.AccountAPI(apikey, secretkey, passphrase, False, str(args.flag))
-        result = accountAPI._request_with_params(GET, GET_MMP, params)
+        # result = accountAPI._request_with_params(GET, GET_MMP, params)
+        result = accountAPI._request_with_params(POST, RESET_MMP, params)
         print(result)
-
-    exit(1)
 
 if __name__ == '__main__':
     main()
