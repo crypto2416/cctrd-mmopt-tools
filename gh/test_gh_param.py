@@ -38,10 +38,12 @@ def print_param_table(parameters_book):
   keys = parameters_book.keys();
   table = []
   for key, p in parameters_book.items():
+    # print(key)
     row = []
     for i in headers:
       row.append(getattr(p[i], 'value_str').replace(",", "\n"))
-    if getattr(p['sym_type'], 'value_str') == '1':
+    the_type = getattr(p['sym_type'], 'value_str')
+    if the_type == '2':
       table.append(row)
       syms = getattr(p['greek_pool_symbols'], 'value_str').strip(' ,').split(",")
       for s in syms:
@@ -51,6 +53,19 @@ def print_param_table(parameters_book):
           for j in headers:
             row.append(getattr(psym[j], 'value_str').replace(",", "\n"))
           table.append(row)
+    elif the_type == '3':
+      table.append(row)
+      syms = getattr(p['hedge_delta_symbols'], 'value_str').strip(' ,').split(",")
+      for s in syms:
+        if s:
+          psym = parameters_book[s]
+          row = []
+          for j in headers:
+            row.append(getattr(psym[j], 'value_str').replace(",", "\n"))
+          table.append(row)
+      # syms = getattr(p['greek_pool_symbols'], 'value_str').strip(' ,').split(",")
+
+
 
 
 #  for key, p in parameters_book.items():
@@ -74,10 +89,10 @@ def loopsub(server):
       recv = pb_msg_pb2.PB_Msg()
       recv.ParseFromString(message)
       if recv.type == pb_msg_pb2.PB_Msg_DataTypeEnum.Value('STYMSG') and recv.cmd.type == pb_msg_pb2.PB_S_DataTypeEnum.Value('STYMCMD'):
-        # print(recv)
         data = recv.cmd
         # server.parameters_book[data.src] = data.mcmd.para
         server.parameters_book[getattr(data.mcmd.para['symbol'], 'value_str')] = data.mcmd.para
+        # print(getattr(data.mcmd.para['symbol'], 'value_str'))
         if (datetime.now() - server.update_time).total_seconds() > 1: 
           print_param_table(server.parameters_book)
           server.update_time = datetime.now()
