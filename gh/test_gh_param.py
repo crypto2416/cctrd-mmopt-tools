@@ -34,7 +34,9 @@ class ZmqSubThread(threading.Thread):
 def print_param_table(parameters_book):
   # headers = ['key', 'sym', 'mode', 'book', 'greek_recalculation_timeout', 'greek_pool_delta_min', 'greek_pool_delta_max', 'hedge_delta_symbols', 'greek_pool_symbols', 'tenor_delta_risk','tenor_gamma_risk', 'tenor_vega_risk', 'total_delta_risk', 'total_gamma_risk', 'total_vega_risk']
   # headers = ['symbol', 'mode', 'book', 'hedge_delta_symbols', 'greek_pool_symbols', 'tenor_delta_risk','tenor_gamma_risk', 'tenor_vega_risk', 'total_delta_risk', 'total_gamma_risk', 'total_vega_risk', 'hedging_position_risk']
-  headers = ['symbol', 'mode', 'book', 'hedge_delta_symbols', 'greek_pool_symbols', 'delta_to_hedge','gamma_to_hedge', 'vega_to_hedge', 'delta_to_hedge', 'hedging_position', 'position_to_hedge']
+  # headers = ['symbol', 'mode', 'book', 'hedge_delta_symbols', 'greek_pool_symbols', 'delta_to_hedge','gamma_to_hedge', 'vega_to_hedge', 'position_to_hedge', 'delta_from_book', 'delta_from_book_dt', 'delta_from_book_dt_rebalanced']
+  headers = ['symbol', 'mode', 'book', 'hedge_delta_symbols', 'greek_pool_symbols', 'delta_to_hedge','gamma_to_hedge', 'vega_to_hedge', 'position_to_hedge', 'gamma_from_book', 'gamma_from_book_dt', 'gamma_from_book_dt_rebalanced']
+  # headers = ['symbol', 'mode', 'book', 'hedge_delta_symbols', 'greek_pool_symbols', 'delta_to_hedge','gamma_to_hedge', 'vega_to_hedge', 'position_to_hedge', 'vega_from_book', 'vega_from_book_dt', 'vega_from_book_dt_rebalanced']
   keys = parameters_book.keys();
   table = []
   for key, p in parameters_book.items():
